@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero-box">
+    <div class="hero-text">
+        <h1>⚡ Groceries in 10 Minutes</h1>
+        <p>Fast delivery of snacks, fruits, drinks and daily essentials across India.</p>
+    </div>
+    <div class="hero-badge">
+        <span>Free delivery on ₹199+</span>
+    </div>
+</div>
+
+<div class="feature-strip">
+    <div class="feature-item">🚚 Fast Delivery</div>
+    <div class="feature-item">🛒 Daily Essentials</div>
+    <div class="feature-item">💸 Best Prices</div>
+    <div class="feature-item">📍 Across India</div>
+</div>
+
+<form method="GET" action="{{ url_for('index') }}" class="search-bar">
+    <input type="text" name="search" placeholder="Search for products..." value="{{ search }}">
+    <button type="submit">Search</button>
+</form>
+
+<div class="category-row">
+    {% for category in categories %}
+        <a href="{{ url_for('index', category=category) }}"
+           class="category-chip {% if selected_category == category %}active-chip{% endif %}">
+            {{ category }}
+        </a>
+    {% endfor %}
+</div>
+
+<h2 class="section-title">Featured Picks</h2>
+<div class="products">
+    {% for p in featured %}
+    <div class="card">
+        <img src="{{ url_for('static', filename='images/' + p.image) }}" alt="{{ p.name }}" class="product-img">
+        <div class="product-category">{{ p.category }}</div>
+        <h3>{{ p.name }}</h3>
+        <p class="price">₹{{ p.price }}</p>
+        <a href="{{ url_for('add_to_cart', product_id=p.id) }}" class="btn">Add to Cart</a>
+    </div>
+    {% endfor %}
+</div>
+
+<h2 class="section-title">All Products</h2>
+<div class="products">
+    {% for p in products %}
+    <div class="card">
+        <img src="{{ url_for('static', filename='images/' + p.image) }}" alt="{{ p.name }}" class="product-img">
+        <div class="product-category">{{ p.category }}</div>
+        <h3>{{ p.name }}</h3>
+        <p class="price">₹{{ p.price }}</p>
+        <a href="{{ url_for('add_to_cart', product_id=p.id) }}" class="btn">Add to Cart</a>
+    </div>
+    {% else %}
+    <p>No products found.</p>
+    {% endfor %}
+</div>
+{% endblock %}

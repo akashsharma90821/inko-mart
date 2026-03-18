@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="checkout-layout">
+    <div class="checkout-box">
+        <h2>Checkout 💳</h2>
+
+        <form action="{{ url_for('place_order') }}" method="POST">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="text" name="phone" placeholder="Phone Number" required>
+            <textarea name="address" placeholder="Delivery Address" required></textarea>
+
+            <label class="payment-label">Select Payment Method</label>
+            <div class="payment-options">
+                <label><input type="radio" name="payment_method" value="UPI" required> UPI</label>
+                <label><input type="radio" name="payment_method" value="Cash on Delivery" required> Cash on Delivery</label>
+                <label><input type="radio" name="payment_method" value="Card" required> Card</label>
+            </div>
+
+            <button type="submit">Place Order</button>
+        </form>
+    </div>
+
+    <div class="summary-box">
+        <h3>Order Summary</h3>
+
+        {% for item in cart_items %}
+        <div class="summary-item">
+            <span>{{ item.product.name }} × {{ item.qty }}</span>
+            <span>₹{{ item.item_total }}</span>
+        </div>
+        {% endfor %}
+
+        <hr>
+        <div class="summary-item">
+            <span>Subtotal</span>
+            <span>₹{{ subtotal }}</span>
+        </div>
+        <div class="summary-item">
+            <span>Delivery Fee</span>
+            <span>₹{{ delivery_fee }}</span>
+        </div>
+        <div class="summary-item total-row">
+            <span>Total</span>
+            <span>₹{{ total }}</span>
+        </div>
+    </div>
+</div>
+{% endblock %}

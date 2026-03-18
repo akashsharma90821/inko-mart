@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="ai-box">
+    <h2>InKo Mart AI Assistant 🤖</h2>
+    <p>For now this is a simple placeholder page.</p>
+
+    <form method="POST" class="ai-form">
+        <textarea name="message" placeholder="Ask something like: suggest snacks under 100">{{ user_message }}</textarea>
+        <button type="submit">Ask AI</button>
+    </form>
+
+    {% if ai_reply %}
+    <div class="ai-response">
+        <h3>Reply</h3>
+        <p>{{ ai_reply }}</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

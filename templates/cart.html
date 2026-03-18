@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Your Cart 🛒</h2>
+
+{% if cart_items %}
+    <div class="cart-list">
+        {% for item in cart_items %}
+        <div class="cart-item">
+            <div class="cart-left">
+                <img src="{{ url_for('static', filename='images/' + item.product.image) }}" alt="{{ item.product.name }}" class="cart-thumb">
+                <div>
+                    <h3>{{ item.product.name }}</h3>
+                    <p>{{ item.product.category }}</p>
+                    <p>₹{{ item.product.price }} × {{ item.qty }}</p>
+                    <p><strong>₹{{ item.item_total }}</strong></p>
+                </div>
+            </div>
+
+            <div class="qty-controls">
+                <a href="{{ url_for('decrease', product_id=item.product.id) }}">−</a>
+                <span>{{ item.qty }}</span>
+                <a href="{{ url_for('increase', product_id=item.product.id) }}">+</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="cart-total">
+        <p>Subtotal: <strong>₹{{ subtotal }}</strong></p>
+        <p>Delivery Fee: <strong>₹{{ delivery_fee }}</strong></p>
+        <h3>Total: ₹{{ total }}</h3>
+        <a href="{{ url_for('checkout') }}" class="checkout-btn">Proceed to Checkout</a>
+    </div>
+{% else %}
+    <div class="empty-box">
+        <h3>Your cart is empty</h3>
+        <p>Add some products to continue shopping.</p>
+        <a href="{{ url_for('index') }}" class="btn">Go Shopping</a>
+    </div>
+{% endif %}
+{% endblock %}

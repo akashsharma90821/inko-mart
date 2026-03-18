@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="success-box">
+    <div class="success-icon">✅</div>
+    <h2>Order Placed Successfully!</h2>
+    <p>Your order will arrive in around 10 minutes.</p>
+
+    <div class="success-details">
+        <p><strong>Name:</strong> {{ order.name }}</p>
+        <p><strong>Phone:</strong> {{ order.phone }}</p>
+        <p><strong>Address:</strong> {{ order.address }}</p>
+        <p><strong>Payment:</strong> {{ order.payment_method }}</p>
+        <p><strong>Total Paid:</strong> ₹{{ order.total }}</p>
+    </div>
+
+    <a href="{{ url_for('index') }}" class="btn">Continue Shopping</a>
+</div>
+{% endblock %}
